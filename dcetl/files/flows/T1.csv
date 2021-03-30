@@ -1,0 +1,20 @@
+job_nm,dependencies,command
+task_infos,,etl.py task_infos deal -c False
+T1,,etl.py T1 batch_el -p 10
+dim_emp_exam,T1,etl.py edw.dim_emp_exam  dml  -p_days 360
+fact_emp_exam_detl,dim_emp_exam,etl.py edw.fact_emp_exam_detl  dml  -p_days 360 
+fact_emp_exam_stats_by_exam,fact_emp_exam_detl,etl.py dms.fact_emp_exam_stats_by_exam  dml 
+fact_emp_exam_stats_by_comp,fact_emp_exam_stats_by_exam,etl.py dms.fact_emp_exam_stats_by_comp  dml   -p_days 360
+dim_camp,T1,etl.py edw.dim_camp deal -p_days 360 
+fact_cust_camp_order,dim_camp,etl.py edw.fact_cust_camp_order dml -schm ods -p_days 360
+fact_cust_pay,T1,etl.py edw.fact_cust_pay dml  -p_days 730
+dim_finc_info,fact_cust_pay,etl.py edw.dim_finc_info dml   -p_days 360 -schm ods 
+dim_busi_dev_user,dim_finc_info,etl.py edw.dim_busi_dev_user dml   -p_days 360 -schm ods 
+stg_busi_dev_share,dim_busi_dev_user,etl.py edw.stg_busi_dev_share dml   -p_days 360 -schm ods 
+fact_busi_dev_log,stg_busi_dev_share,etl.py edw.fact_busi_dev_log dml   -p_days 360 -schm ods 
+fact_busi_dev_leads,fact_busi_dev_log,etl.py edw.fact_busi_dev_leads dml   -p_days 360 -schm ods 
+rpt_emp_busi_dev_stats,fact_busi_dev_leads,etl.py dms.rpt_emp_busi_dev_stats dml   -p_days 360 
+fact_emp_stats_d,rpt_emp_busi_dev_stats,etl.py dms.fact_emp_stats_d dml -p_days 360
+fact_comp_stats_d,fact_emp_stats_d,etl.py dms.fact_comp_stats_d dml -p_days 360
+fpdp_emp_stats_sum,fact_comp_stats_d,etl.py adl.fpdp_emp_stats_sum dml
+mapp_comp_busi_dev_stats,fpdp_emp_stats_sum,etl.py adl.mapp_comp_busi_dev_stats dml

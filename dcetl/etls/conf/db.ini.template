@@ -1,0 +1,66 @@
+[odw]
+host=10.12.5.39
+port= 5432
+db=  dpstest
+user= dps
+pwd= dps1234
+db_type= PostgreSQL
+remark= 数据平台数据库
+[crm]
+host= 10.12.5.41
+port= 5432
+db= hycrm_new
+user= admin
+pwd= haiyin
+db_type= PostgreSQL
+remark= CRM数据库
+[applogs]
+host= broker1
+port= 27017
+db= applogs
+user= ''
+pwd= ''
+db_type= mongodb
+remark= 埋点日志
+[dps]
+host=10.12.5.39
+port= 5432
+db=  dpstest
+user= dps
+pwd= dps1234
+db_type= PostgreSQL
+remark= 数据平台数据库
+[dw]
+host=10.134.0.21
+port= 5432
+db=  ods
+user= gpadmin
+pwd= gpadmin
+db_type= greenplum
+remark= 数据平台数据库
+[hr]
+host=10.254.41.52
+port= 1521
+db=  oadb
+user= ecology
+pwd= ecology
+db_type= Oracle
+remark= HR
+
+[ibm]
+host=10.12.5.40
+port= 5432
+db=  ibm
+user= ibm
+pwd= 1q2w3e4r
+db_type= postgresql
+remark= IBM
+
+[prd]
+host=10.12.5.38
+port= 5432
+db=  dps200424
+user= dps
+pwd= dps1234
+db_type= PostgreSQL
+remark= 数据平台数据库

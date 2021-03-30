@@ -1,0 +1,13 @@
+# 环境 prod 生成环境 dev 开发环境
+ENV : 'prod'
+# 日志level, 生产使用error级别
+log_level : INFO
+# 默认的数据库连接编码，需要在db.ini配置一致，一般是值是数据仓库的连接编码，例如dw
+default_db_cd: dw
+# 日志基础配置文件
+log_config_file: '/home/xzh/dps/dcetl/etls/conf/log.yaml'
+# 理财师积分 elearning学习积分处理
+elearning_point:
+  query_url: http://haiyin.cyberwisdom.net.cn/app/getIntegralQuery--
+  clean_url: http://haiyin.cyberwisdom.net.cn/app/IntegralCleaningService--
+  token_key: 1p2W3d4E5l6E7a8R9n

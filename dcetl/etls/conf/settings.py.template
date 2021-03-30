@@ -1,0 +1,62 @@
+# encoding: utf-8
+"""
+Created on 2020-10-12
+
+@author: xuzh
+"""
+import os.path
+import yaml
+
+# 获取 etls/conf/params.yaml 参数文件中的参数
+setting_file_path = os.path.abspath(__file__)
+PARAMS_FILE_PATH = setting_file_path.replace("settings.py", "params.yaml")
+PARAMS = yaml.load(open(PARAMS_FILE_PATH, encoding='utf-8'), Loader=yaml.FullLoader)
+# dcetl根目录所在路径
+if 'BASE_DIR' in PARAMS:
+    BASE_DIR = PARAMS['BASE_DIR']
+else:
+    BASE_DIR = setting_file_path.replace("/dcetl/etls/conf/settings.py", "")
+ETL_PATH = os.path.join(BASE_DIR, 'dcetl')
+# 环境 prod 生成环境 dev 开发环境
+ENV = PARAMS['ENV']
+# 临时文件目录
+TEMP_HOME = os.path.join(BASE_DIR, 'temp')
+if not os.path.exists(TEMP_HOME):
+    os.makedirs(TEMP_HOME, exist_ok=True)
+# 数据文件路径
+data_file_path = os.path.join(ETL_PATH, 'files')
+# 数据库表结构定义sql文件路径
+ddl_path = os.path.join(ETL_PATH, 'ddl')
+# datax 目录
+datax_path = os.path.join(BASE_DIR, 'datax')
+# 数据库sql执行文件文件路径，一般是只etl脚本的主目录，例如etl/dpsetl/dpsetl
+script_path = os.path.join(ETL_PATH, 'etls/scripts')  # dml表执行sql路径
+# etl脚本的根模块名称
+etl_root_module = 'etls.scripts'
+# 数据库配置目录
+db_config_path = os.path.join(ETL_PATH, 'etls/conf/db.ini')
+# 默认的数据库连接编码，需要在db.ini配置一致，一般是值是数据仓库的连接编码，例如dw
+default_db_cd = PARAMS['default_db_cd']
+# 用于测试对比表结构，导入数据的临时schema,一般用完就删除。所以里面一般是空的
+dafault_tmp_schema = 'tmp'
+# request 请求过期时间: 600秒
+request_timeout = 600
+# 日志基础配置文件
+log_config_file = PARAMS['log_config_file']
+# 日志level, 生产使用error级别
+log_level = PARAMS['log_level']
+# 日志文件目录
+log_home = os.path.join(BASE_DIR, 'log', 'etl')
+if not os.path.exists(log_home):
+    os.makedirs(log_home, exist_ok=True)
+
+# 微信通知参数
+wx_url = "http://10.12.5.75:8081889/hywx-service/open/message/send"
+wx_appSecret = "RIHBrLJls43SS4m_s3w4ccxDVT00JVIAGtz0JqPMgEwX"
+wx_agentId = 1000009
+
+# 邮件通知配置
+email_note_user = ['xuzh@chyjr.com']
+email_user = 'dps@chyjr.com'
+email_pwd = 'Hjk123456'
+email_from = '数据平台<dps@chyjr.com>'
